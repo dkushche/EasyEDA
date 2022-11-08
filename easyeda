@@ -1,0 +1,20 @@
+#!/bin/python
+
+import subprocess
+
+
+def main():
+    """
+    Checks arguments and runs mentioned commands
+    """
+
+    subprocess.run(["xhost", "+"], check=True)
+    subprocess.run([
+        "docker", "run", "--detach",
+        "--volume", "/tmp/.X11-unix:/tmp/.X11-unix",
+        "ghcr.io/dkushche/_:master"
+    ], check=True)
+
+
+if __name__ == "__main__":
+    main()

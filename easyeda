@@ -11,14 +11,14 @@ def main():
     subprocess.run(["xhost", "+"], check=True)
 
     os.makedirs(f'easyeda_storage', exist_ok=True)
-
     subprocess.run([
         "docker", "run",
+        "--pull", "always",
         "--interactive", "--tty",
-        "--env", f'DISPLAY=${os.environ["DISPLAY"]}',
+        "--env", f'DISPLAY={os.environ["DISPLAY"]}',
         "--volume", "/tmp/.X11-unix:/tmp/.X11-unix",
         "--volume", f"{os.getcwd()}/easyeda_storage:/root/.config/EasyEDA/client/",
-        "ghcr.io/dkushche/_:master"
+        "ghcr.io/dkushche/easyeda:master"
     ], check=True)
 
 

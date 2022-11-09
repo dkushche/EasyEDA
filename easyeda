@@ -1,25 +1,67 @@
 #!/bin/python
 
 import os
+import sys
+import argparse
 import subprocess
+
+def pull(image_path):
+    subprocess.run(["docker", "pull", image_path], check=True)
+
+
+def start(image_path):
+    subprocess.run(["xhost", "+"], check=True)
+
+    os.makedirs(f'easyeda_storage', exist_ok=True)
+
+    subprocess.run([
+        "docker", "run",
+        "--interactive", "--tty",
+        "--env", f'DISPLAY={os.environ["DISPLAY"]}',
+        "--volume", "/tmp/.X11-unix:/tmp/.X11-unix",
+        "--volume", f"{os.getcwd()}/easyeda_storage:/root/.config/EasyEDA/client/",
+        image_path
+    ], check=True)
+
+
+def parse_args():
+    """
+    Parses of command line arguments
+    """
+
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument(
+        '-u', '--start', action='store_true',
+        help='starts easyeda(window will open instantly)'
+    )
+
+    parser.add_argument(
+        '-p', '--pull', action='store_true',
+        help='pull laters image from github'
+    )
+
+    args = vars(parser.parse_args())
+
+    if not any(args.values()):
+        parser.print_help()
+        sys.exit(1)
+
+    return args
+
 
 def main():
     """
     Checks arguments and runs mentioned commands
     """
 
-    subprocess.run(["xhost", "+"], check=True)
+    args = parse_args()
 
-    os.makedirs(f'easyeda_storage', exist_ok=True)
-    subprocess.run([
-        "docker", "run",
-        "--pull", "always",
-        "--interactive", "--tty",
-        "--env", f'DISPLAY={os.environ["DISPLAY"]}',
-        "--volume", "/tmp/.X11-unix:/tmp/.X11-unix",
-        "--volume", f"{os.getcwd()}/easyeda_storage:/root/.config/EasyEDA/client/",
-        "ghcr.io/dkushche/easyeda:master"
-    ], check=True)
+    image_path = "ghcr.io/dkushche/easyeda:master"
+
+    for cmd, status in args.items():
+        if status is True:
+            globals()[cmd](image_path)
 
 
 if __name__ == "__main__":

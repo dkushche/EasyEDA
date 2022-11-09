@@ -14,6 +14,4 @@ RUN apt-get update && apt-get install -y libx11-xcb-dev \
 
 COPY --from=download easyeda-linux-x64 easyeda-linux-x64
 
-USER 1000:1000
-
 CMD ./easyeda-linux-x64/easyeda

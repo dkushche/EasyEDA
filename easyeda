@@ -1,7 +1,7 @@
 #!/bin/python
 
+import os
 import subprocess
-
 
 def main():
     """
@@ -9,9 +9,15 @@ def main():
     """
 
     subprocess.run(["xhost", "+"], check=True)
+
+    os.makedirs(f'easyeda_storage', exist_ok=True)
+
     subprocess.run([
-        "docker", "run", "--detach",
+        "docker", "run",
+        "--interactive", "--tty",
+        "--env", f'DISPLAY=${os.environ["DISPLAY"]}',
         "--volume", "/tmp/.X11-unix:/tmp/.X11-unix",
+        "--volume", f"{os.getcwd()}/easyeda_storage:/root/.config/EasyEDA/client/",
         "ghcr.io/dkushche/_:master"
     ], check=True)
 

@@ -12,6 +12,8 @@ RUN apt-get update && apt-get install -y libx11-xcb-dev \
                                          libxss1 \
 	                                     libnss3
 
+RUN mkdir /projects
+
 COPY --from=download easyeda-linux-x64 easyeda-linux-x64
 
 CMD ./easyeda-linux-x64/easyeda

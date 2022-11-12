@@ -19,6 +19,7 @@ def start(image_path):
         "--interactive", "--tty",
         "--env", f'DISPLAY={os.environ["DISPLAY"]}',
         "--volume", "/tmp/.X11-unix:/tmp/.X11-unix",
+        "--volume", f"{os.getcwd()}/easyeda_storage/projects:/projects",
         "--volume", f"{os.getcwd()}/easyeda_storage:/root/.config/EasyEDA/client/",
         image_path
     ], check=True)

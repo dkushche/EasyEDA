@@ -13,13 +13,12 @@ def start(image_path):
     subprocess.run(["xhost", "+"], check=True)
 
     os.makedirs(f'easyeda_storage', exist_ok=True)
-
     subprocess.run([
         "docker", "run",
         "--interactive", "--tty",
         "--env", f'DISPLAY={os.environ["DISPLAY"]}',
-        "--shm-size", "4gb",
         "--volume", "/tmp/.X11-unix:/tmp/.X11-unix",
+        "--shm-size", "4gb",
         "--volume", f"{os.getcwd()}/easyeda_storage:/projects",
         "--volume", f"{os.getcwd()}/easyeda_storage:/root/.config/EasyEDA/client/",
         image_path

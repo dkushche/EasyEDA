@@ -10,7 +10,7 @@ RUN apt-get update && apt-get install -y libx11-xcb-dev \
                                          libgtk-3-0 \
                                          libasound2 \
                                          libxss1 \
-	                                     libnss3
+                                         libnss3
 
 RUN mkdir /projects
 

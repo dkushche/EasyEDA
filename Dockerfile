@@ -5,7 +5,8 @@ RUN unzip easyeda-linux-x64-6.5.22.zip
 
 FROM debian:bullseye-20221024-slim
 
-RUN apt-get update && apt-get install -y libx11-xcb-dev \
+RUN apt-get update && apt-get install -y libcanberra-gtk3-module \
+                                         libx11-xcb-dev \
                                          libglib2.0-0 \
                                          libgtk-3-0 \
                                          libasound2 \

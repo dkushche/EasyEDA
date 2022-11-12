@@ -18,8 +18,9 @@ def start(image_path):
         "docker", "run",
         "--interactive", "--tty",
         "--env", f'DISPLAY={os.environ["DISPLAY"]}',
+        "--shm-size", "4gb",
         "--volume", "/tmp/.X11-unix:/tmp/.X11-unix",
-        "--volume", f"{os.getcwd()}/easyeda_storage/projects:/projects",
+        "--volume", f"{os.getcwd()}/easyeda_storage:/projects",
         "--volume", f"{os.getcwd()}/easyeda_storage:/root/.config/EasyEDA/client/",
         image_path
     ], check=True)

@@ -20,7 +20,7 @@ def start(image_path):
         "--volume", "/tmp/.X11-unix:/tmp/.X11-unix",
         "--shm-size", "4gb",
         "--volume", f"{os.getcwd()}/easyeda_storage:/easyeda_storage",
-        "--volume", f"{os.getcwd()}/easyeda_storage:/root/.config/EasyEDA/client/",
+        "--volume", f"{os.getcwd()}/easyeda_storage:/root/.config/EasyEDA",
         image_path
     ], check=True)
 

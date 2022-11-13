@@ -16,7 +16,7 @@ RUN apt-get update && apt-get install -y libcanberra-gtk3-module \
 
 COPY entrypoint.sh .
 
-RUN mkdir -p /projects /run/dbus
+RUN mkdir -p /easyeda_storage /run/dbus
 
 COPY --from=download easyeda-linux-x64 easyeda-linux-x64
 

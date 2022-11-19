@@ -11,8 +11,6 @@ def pull(image_path):
 
 def start(image_path):
     subprocess.run(["xhost", "+"], check=True)
-
-    os.makedirs(f'easyeda_storage', exist_ok=True)
     subprocess.run([
         "docker", "run",
         "--interactive", "--tty",

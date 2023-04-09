@@ -1,4 +1,4 @@
-#!/bin/python
+#!/usr/bin/env python3
 
 import os
 import sys
@@ -21,6 +21,7 @@ def start(image_path):
         "--volume", f"{os.getcwd()}/easyeda_storage:/root/.config/EasyEDA",
         image_path
     ], check=True)
+    subprocess.run(["xhost", "-"], check=True)
 
 
 def parse_args():
